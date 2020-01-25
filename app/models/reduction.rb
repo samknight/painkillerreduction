@@ -10,4 +10,7 @@ class Reduction < ApplicationRecord
     pills = medication.dose * medication.frequency
     (pills - (pills * (0.1 * week))).round
   end
+
+  def schedule(week)
+  end
 end
