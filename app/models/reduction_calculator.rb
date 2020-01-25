@@ -3,6 +3,6 @@ class ReductionCalculator
 
     def init(opts = {})
         reduction_ratio = opts[:reduction_ration] || 0.10
-        pills -
+       # pills -
     end
 end
