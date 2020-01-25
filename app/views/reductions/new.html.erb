@@ -1,0 +1,11 @@
+<h1>New Reduction Plan for <%= "Patient #{@medication.patient.id}" %></h1>
+<p>Drug: <%= @medication.drug.full_name %></p>
+<%= form_with model: [@medication, @reduction] do |reduction| %>
+    <p>
+        <%= reduction.label :days, 'How many days would you like to the reduction plan to take place' %>
+        <%= reduction.number_field :days, value: 7, step: 7 %>
+    </p>
+    <p>
+      <%= reduction.submit %>
+    </p>
+<% end %>

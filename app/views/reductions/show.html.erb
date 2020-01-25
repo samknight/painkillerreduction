@@ -1,0 +1,27 @@
+<h1>New Reduction Plan for <%= "Patient #{@medication.patient.id}" %></h1>
+<p>Drug: <%= @medication.drug.full_name %>
+<br />Dose: <%= @medication.dose %>
+<br />Frequency: <%= @medication.frequency %> times a day
+<br /><strong>Morphine Equivalent:</strong> <%= @medication.morphine_equivalent %>mg</p>
+
+<table>
+  <thead>
+    <td>Week</td>
+    <td>Pill reduction</td>
+    <% Interval.times[@medication.frequency].each do |time| %>
+        <td><%= time %></td>
+    <% end %>
+  </thead>
+  <tbody>
+    <% (@reduction.days / 7).times do |i| %>
+        <tr>
+            <td><%= "Week #{i + 1}" %></td>
+            <td><%= @reduction.pill_reduction(i) %></td>
+
+            <% Interval.times[@medication.frequency].each do |time| %>
+                <td><%= "TBD" %></td>
+            <% end %>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
