@@ -2,19 +2,23 @@
 <%= form_with model: @medication do |medication| %>
 
     <%= medication.hidden_field :patient_id, value: @patient.id %>
-    <p>
-        <%= medication.label :drug_id, 'Drug' %>
-        <%= medication.collection_select(:drug_id, @drugs, :id, :full_name) %>
-    </p>
-    <p>
-        <%= medication.label :dose, 'How many tablets/capsules per dose?' %>
-        <%= medication.number_field :dose, value: 2, step: 1 %>
-    </p>
-    <p>
-        <%= medication.label :frequency, 'How many times a day do you take your dose?' %>
-        <%= medication.number_field :frequency, value: 1, step: 1 %>
-    </p>
-    <p>
-      <%= medication.submit %>
-    </p>
+
+    <fieldset class="nhsuk-fieldset">
+        <div class="nhsuk-form-group">
+            <%= medication.label :drug_id, 'Drug', class: 'nhsuk-label' %>
+            <%= medication.collection_select(:drug_id, @drugs, :id, :full_name, {}, {class: 'nhsuk-select'}) %>
+        </div>
+        <div class="nhsuk-form-group">
+            <%= medication.label :dose, 'How many tablets/capsules per dose?',  class: 'nhsuk-label' %>
+            <%= medication.number_field :dose, value: 2, step: 1, class: 'nhsuk-input nhsuk-input--width-5' %>
+        </div>
+        <div class="nhsuk-form-group">
+            <%= medication.label :frequency, 'How many times a day do you take your dose?',  class: 'nhsuk-label' %>
+            <%= medication.number_field :frequency, value: 1, step: 1, class: 'nhsuk-input nhsuk-input--width-5' %>
+        </div>
+    </fieldset>
+
+    <div>
+      <%= medication.submit 'Submit', class: 'nhsuk-button' %>
+    </div>
 <% end %>

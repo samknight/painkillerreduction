@@ -3,10 +3,9 @@
 <%= form_with model: [@medication, @reduction] do |reduction| %>
   <fieldset class="nhsuk-fieldset">
     <div class="nhsuk-form-group">
-        <%= reduction.label :days, 'How many days would you like to the reduction plan to take place?', class: 'nhsuk-label' %>    </label>
+        <%= reduction.label :days, 'How many days would you like to the reduction plan to take place?', class: 'nhsuk-label' %>
         <%= reduction.number_field :days, value: 7, step: 7, class: 'nhsuk-input nhsuk-input--width-5' %>
     </div>
-
   </fieldset>
 
     <div>
