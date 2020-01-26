@@ -8,3 +8,6 @@
 
 Drug.create(name: 'Codeine', dosage: '30', morphine: 0.15)
 Drug.create(name: 'Tramadol', dosage: '50', morphine: 0.15)
+Drug.create(name: 'Oxycodone', dosage: '5', morphine: 0.2)
+Drug.create(name: 'Gabapentin', dosage: '100', morphine: 0.15)
+Drug.create(name: 'DiHydrocodeine', dosage: '30', morphine: 0.1)

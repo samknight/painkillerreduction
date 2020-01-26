@@ -1,24 +1,25 @@
 class ReductionsController < ApplicationController
 
     def new
-        @medication = Medication.find(params[:medication_id])
-        @reduction = @medication.reduction.new
+        @patient = Patient.find(params[:patient_id])
+        @reduction = @patient.reductions.new
     end
 
     def create
-        @medication = Medication.find(params[:medication_id])
-        @reduction = @medication.reduction.new(reduction_params)
+        @patient = Patient.find(params[:patient_id])
+        @reduction = @patient.reductions.new(reduction_params)
         @reduction.save
-        redirect_to [@medication, @reduction]
+        redirect_to patient_reduction_path(@patient, @reduction)
     end
 
     def show
-        @medication = Medication.find(params[:medication_id])
+        @patient = Patient.find(params[:patient_id])
         @reduction = Reduction.find(params[:id])
+        @medication = @reduction.medication
     end
 
 
     def reduction_params
-        params.require(:reduction).permit(:days)
+        params.require(:reduction).permit(:medication_id, :days)
     end
 end

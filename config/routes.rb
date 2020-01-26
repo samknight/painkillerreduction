@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   root 'medications#new'
 
-  resources :medications do
+  resources :medications
+  resources :patients do
     resources :reductions
   end
 end

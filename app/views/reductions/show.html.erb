@@ -1,14 +1,36 @@
+<style>
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.red {
+  background-color: #A00;
+}
+.green {
+  background-color: #0A0;
+}
+</style>
+
 <% content_for :breadcrumbs do %>
-  <li class="nhsuk-breadcrumb__item"><%= link_to 'Add medication', root_path, class: 'nhsuk-breadcrumb__link' %></li>
-  <li class="nhsuk-breadcrumb__item"><%= link_to 'Change reduction time', new_medication_reduction_path(@medication), class: 'nhsuk-breadcrumb__link' %></li>
-  <li class="nhsuk-breadcrumb__item"><%= link_to 'Show plan', medication_reduction_path(@medication, @reduction), class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'New patient', root_path, class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Add medication', new_medication_path(patient_id: @patient.id), class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'New plan', new_patient_reduction_path(@patient), class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Show plan', patient_reduction_path(@patient, @reduction), class: 'nhsuk-breadcrumb__link' %></li>
 <% end %>
 
 <p>Drug: <%= @medication.drug.full_name %>
 <br />Dose: <%= @medication.dose %>
 <br />Frequency: <%= @medication.frequency %> times a day
-<br /><strong>Morphine Equivalent:</strong> <%= @medication.morphine_equivalent %>mg</p>
-
+<p><strong>Morphine Equivalent (all medications):</strong> <%= @patient.medications.collect(&:morphine_equivalent).sum %>mg</p>
+<% if @patient.medications.collect(&:morphine_equivalent).sum >= 120 %>
+  <span class="dot red"></span>
+<% else %>
+  <span class="dot green"></span>
+<% end %>
+</p>
 
 <% if @reduction.days > 21 %>
   <%= render 'weeks' %>

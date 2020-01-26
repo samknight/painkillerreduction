@@ -1,11 +1,17 @@
 <% content_for :breadcrumbs do %>
-  <li class="nhsuk-breadcrumb__item"><%= link_to 'Add medication', root_path, class: 'nhsuk-breadcrumb__link' %></li>
-  <li class="nhsuk-breadcrumb__item"><%= link_to 'Change reduction time', new_medication_reduction_path(@medication), class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'New patient', root_path, class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Add medication', new_medication_path(patient_id: @patient.id), class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Reduction plan', new_patient_reduction_path(@patient), class: 'nhsuk-breadcrumb__link' %></li>
 <% end %>
 
-<p>Drug: <%= @medication.drug.full_name %></p>
-<%= form_with model: [@medication, @reduction] do |reduction| %>
+<%= form_with model: [@patient, @reduction] do |reduction| %>
   <fieldset class="nhsuk-fieldset">
+    <div class="nhsuk-form-group">
+      <%= reduction.label :drug_id, 'Medication', class: 'nhsuk-label' %>
+      <% medications = [] %> 
+      <% @patient.medications.each { |m| medications << [m.drug.full_name, m.id] } %>
+      <%= reduction.select(:medication_id, options_for_select(medications), {}, {class: 'nhsuk-select'}) %>
+    </div>
     <div class="nhsuk-form-group">
       <%= reduction.label :days, 'Over many weeks would you like to the reduction plan to take place?', class: 'nhsuk-label' %>
       <%# reduction.number_field :days, value: 7, step: 7, class: 'nhsuk-input nhsuk-input--width-5' %>

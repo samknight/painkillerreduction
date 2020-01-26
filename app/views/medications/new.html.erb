@@ -1,5 +1,8 @@
 <% content_for :breadcrumbs do %>
-    <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/">Add medication</a></li>
+    <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/">New patient</a></li>
+    <% unless params[:patient_id].nil? %>
+      <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/">Add medication</a></li>
+    <% end %>
 <% end %>
 
 <h3>Please Choose from the options below</h3>
@@ -20,9 +23,22 @@
             <%= medication.label :frequency, 'How many times a day do you take your dose?',  class: 'nhsuk-label' %>
             <%= medication.number_field :frequency, value: 1, step: 1, class: 'nhsuk-input nhsuk-input--width-5' %>
         </div>
+        <div class="nhsuk-form-group">
+        <div class="nhsuk-checkboxes">
+
+             <div class="nhsuk-checkboxes__item">
+            <%= medication.check_box :add_another, class: 'nhsuk-checkboxes__input' %>
+            <%= medication.label :add_another, 'I want to add another medication',  class: 'nhsuk-label nhsuk-checkboxes__label' %>
+        </div></div>
+        </div>
     </fieldset>
 
     <div>
       <%= medication.submit 'Submit', class: 'nhsuk-button' %>
+      <% if @patient.medications.any? %>
+        <p>
+            <%= link_to 'Skip', new_patient_reduction_path(@patient), class: 'nhsuk-link' %>
+        </p>
+      <% end %>
     </div>
 <% end %>

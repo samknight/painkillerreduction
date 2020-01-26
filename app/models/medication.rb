@@ -3,6 +3,8 @@ class Medication < ApplicationRecord
   belongs_to :drug
   has_many :reduction
 
+  attr_accessor :add_another
+
   validates :dose, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :frequency, presence: true, numericality: { only_integer: true, greater_than: 0 }
 

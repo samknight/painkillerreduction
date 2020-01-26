@@ -2,7 +2,7 @@ class MedicationsController < ApplicationController
 
     def new
         @drugs = Drug.all
-        @patient = Patient.create!
+        @patient = params[:patient_id].nil? ?  Patient.create! : Patient.find(params[:patient_id])
         @medication = Medication.new
     end
 
@@ -12,14 +12,18 @@ class MedicationsController < ApplicationController
         @patient = @medication.patient
 
         if @medication.save
-          redirect_to new_medication_reduction_path(@medication)
+          if @medication.add_another == '1'
+            redirect_to new_medication_path(patient_id: @patient.id)
+          else
+            redirect_to new_patient_reduction_path(@patient)
+          end
         else
-            render :new
+          render :new
         end
     end
 
 
     def medication_params
-        params.require(:medication).permit(:drug_id, :patient_id, :dose, :frequency)
+        params.require(:medication).permit(:drug_id, :patient_id, :dose, :frequency, :add_another)
     end
 end
