@@ -4,7 +4,6 @@
   <li class="nhsuk-breadcrumb__item"><%= link_to 'Show plan', medication_reduction_path(@medication, @reduction), class: 'nhsuk-breadcrumb__link' %></li>
 <% end %>
 
-<h1>New Reduction Plan for <%= "Patient #{@medication.patient.id}" %></h1>
 <p>Drug: <%= @medication.drug.full_name %>
 <br />Dose: <%= @medication.dose %>
 <br />Frequency: <%= @medication.frequency %> times a day

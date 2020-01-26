@@ -2,7 +2,7 @@
     <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/">Add medication</a></li>
 <% end %>
 
-<h1>New Medication for <%= "Patient #{@patient.id}" %></h1>
+<h3>Please Choose from the options below</h3>
 <%= form_with model: @medication do |medication| %>
 
     <%= medication.hidden_field :patient_id, value: @patient.id %>
