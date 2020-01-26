@@ -7,7 +7,7 @@
 <%= form_with model: [@patient, @reduction] do |reduction| %>
   <fieldset class="nhsuk-fieldset">
     <div class="nhsuk-form-group">
-      <%= reduction.label :drug_id, 'Medication', class: 'nhsuk-label' %>
+      <%= reduction.label :drug_id, 'Please choose the medication you would like to reduce', class: 'nhsuk-label' %>
       <% medications = [] %> 
       <% @patient.medications.each { |m| medications << [m.drug.full_name, m.id] } %>
       <%= reduction.select(:medication_id, options_for_select(medications), {}, {class: 'nhsuk-select'}) %>
