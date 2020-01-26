@@ -7,10 +7,15 @@ class MedicationsController < ApplicationController
     end
 
     def create
+        @drugs = Drug.all
         @medication = Medication.new(medication_params)
-        @medication.save
+        @patient = @medication.patient
 
-        redirect_to new_medication_reduction_path(@medication)
+        if @medication.save
+          redirect_to new_medication_reduction_path(@medication)
+        else
+            render :new
+        end
     end
 
 

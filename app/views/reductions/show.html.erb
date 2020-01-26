@@ -1,3 +1,9 @@
+<% content_for :breadcrumbs do %>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Add medication', root_path, class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Change reduction time', new_medication_reduction_path(@medication), class: 'nhsuk-breadcrumb__link' %></li>
+  <li class="nhsuk-breadcrumb__item"><%= link_to 'Show plan', medication_reduction_path(@medication, @reduction), class: 'nhsuk-breadcrumb__link' %></li>
+<% end %>
+
 <h1>New Reduction Plan for <%= "Patient #{@medication.patient.id}" %></h1>
 <p>Drug: <%= @medication.drug.full_name %>
 <br />Dose: <%= @medication.dose %>
@@ -5,26 +11,8 @@
 <br /><strong>Morphine Equivalent:</strong> <%= @medication.morphine_equivalent %>mg</p>
 
 
-<div class="nhsuk-table-responsive">
-  <table class="nhsuk-table">
-    <caption class="nhsuk-table__caption">Morphone Reduction Plan</caption>
-    <thead class="nhsuk-table__head">
-      <tr class="nhsuk-table__row">
-        <th class="nhsuk-table__header" scope="col">Week / Wythnos</th>
-        <% Interval.times[@medication.frequency].each do |time| %>
-            <th class="nhsuk-table__header" scope="col"><%= time %></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody class="nhsuk-table__body">
-      <% (@reduction.days / 7).times do |i| %>
-        <tr class="nhsuk-table__row">
-            <td class="nhsuk-table__cell"><%= "Week #{i + 1}" %></td>
-            <% @reduction.schedule(i).each_with_index do |schedule, j| %>
-                <td class="nhsuk-table__cell "><%= schedule %></td>
-            <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<% if @reduction.days > 21 %>
+  <%= render 'weeks' %>
+<% else %>
+  <%= render 'days' %>
+<% end %>

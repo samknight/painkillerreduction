@@ -1,0 +1,23 @@
+<div class="nhsuk-table-responsive">
+  <table class="nhsuk-table">
+    <caption class="nhsuk-table__caption">Morphone Reduction Plan</caption>
+    <thead class="nhsuk-table__head">
+      <tr class="nhsuk-table__row">
+        <th class="nhsuk-table__header" scope="col">Week / Wythnos</th>
+        <% Interval.times[@medication.frequency].each do |time| %>
+            <th class="nhsuk-table__header" scope="col"><%= time %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody class="nhsuk-table__body">
+      <% (@reduction.days / 7).times do |i| %>
+        <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell"><%= "#{(i+1)}" %></td>
+            <% @reduction.schedule(i*7).each_with_index do |schedule, j| %>
+                <td class="nhsuk-table__cell "><%= schedule %></td>
+            <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,3 +1,7 @@
+<% content_for :breadcrumbs do %>
+    <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/">Add medication</a></li>
+<% end %>
+
 <h1>New Medication for <%= "Patient #{@patient.id}" %></h1>
 <%= form_with model: @medication do |medication| %>
 
